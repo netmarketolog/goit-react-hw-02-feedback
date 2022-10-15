@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 const methods = Object.freeze({
   methodgood: 'good',
   methodneutral: 'neutral',
