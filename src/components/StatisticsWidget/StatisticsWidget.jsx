@@ -2,6 +2,7 @@ import { FeedbackOptions } from 'components/FeedbackOptions/FeedbackOptions';
 import { StatisticList } from 'components/StatisticsList/StatisticsList';
 import { Component } from 'react';
 import { Section } from 'components/Section/Section';
+import { Notification } from 'components/Notification/Notification';
 
 export class StatisticsWidget extends Component {
   state = {
@@ -29,19 +30,25 @@ export class StatisticsWidget extends Component {
   render() {
     const total = this.countTotalFeedback();
     const positiveFeedback = this.countPositiveFeedbackPercentage();
-    console.log('SW:', this.state);
 
     return (
       <div>
         <Section title={'Please leave feedback'}>
-          <FeedbackOptions options={this.methodUp} />
+          <FeedbackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.methodUp}
+          />
         </Section>
         <Section title={'Statistics'}>
-          <StatisticList
-            stat={this.state}
-            total={total}
-            positiveFeedback={positiveFeedback}
-          />
+          {total ? (
+            <StatisticList
+              stat={this.state}
+              total={total}
+              positiveFeedback={positiveFeedback}
+            />
+          ) : (
+            <Notification message="There is no feedback" />
+          )}
         </Section>
       </div>
     );

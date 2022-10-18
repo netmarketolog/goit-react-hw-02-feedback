@@ -1,14 +1,22 @@
-const methods = Object.freeze({
-  methodgood: 'good',
-  methodneutral: 'neutral',
-  methodbad: 'bad',
-});
-export const FeedbackOptions = ({ options }) => {
+import PropTypes from 'prop-types';
+import { Btn } from './Btn.styled';
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <>
-      <button onClick={() => options(methods.methodgood)}>good</button>
-      <button onClick={() => options(methods.methodneutral)}>neutral</button>
-      <button onClick={() => options(methods.methodbad)}>bad</button>
+      {options.map(option => (
+        <Btn
+          key={option}
+          name={option}
+          type="button"
+          onClick={() => onLeaveFeedback(option)}
+        >
+          {option}
+        </Btn>
+      ))}
     </>
   );
+};
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string.isRequired),
+  onLeaveFeedback: PropTypes.func.isRequired,
 };
